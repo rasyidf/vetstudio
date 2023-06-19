@@ -1,7 +1,6 @@
 import { MainNav } from "@/components/groups/main-nav";
 import { Search } from "@/components/groups/search";
 import { UserNav } from "@/components/groups/user-nav";
-import { BookPlus } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 import logo from "@/assets/icon.png";
 
