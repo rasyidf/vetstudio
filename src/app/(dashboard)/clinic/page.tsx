@@ -1,13 +1,6 @@
 import { Table } from "@/components/ui/table";
-import { json, useLoaderData } from "react-router-dom";
-
-export async function loader({ }) {
-  let data = "Hello Clinics!";
-  return json(data);
-}
 
 export function Component() {
-  let data = useLoaderData() as string;
 
   return (
     <>

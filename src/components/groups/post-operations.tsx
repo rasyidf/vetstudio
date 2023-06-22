@@ -1,7 +1,8 @@
 
-import * as React from "react";
 import { Post } from "@/types/main";
+import * as React from "react";
 
+import { Icons } from "@/components/icons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,8 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
-import { Icons } from "@/components/icons";
-import { Link, useLocation, useMatch, useNavigate, useRoutes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 async function deletePost(postId: string) {
   const response = await fetch(`/api/posts/${postId}`, {
@@ -46,7 +46,6 @@ interface PostOperationsProps {
 export function PostOperations({ post }: PostOperationsProps) {
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false);
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false);
-  const navigate = useNavigate();
   return (
     <>
       <DropdownMenu>

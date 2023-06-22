@@ -1,5 +1,4 @@
-import { supabase } from "@/lib/supabase";
-import { LoaderFunctionArgs, json, useLoaderData } from "react-router-dom";
+import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 
 type LoaderData = {
   operation: "new" | "edit" | "view" | string & {},

@@ -4,7 +4,6 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
-  Command,
   CreditCard,
   File,
   FileText,
@@ -31,7 +30,7 @@ import logo from "@/assets/icon.png";
 import { cn } from "@/lib/utils";
 
 export const Icons = {
-  logo: ({ className, ...props }: LucideProps) => (<><img src={logo} className={cn("w-8", className)} alt="Logo" /></>),
+  logo: ({ className }: LucideProps) => (<><img src={logo} className={cn("w-8", className)} alt="Logo" /></>),
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,

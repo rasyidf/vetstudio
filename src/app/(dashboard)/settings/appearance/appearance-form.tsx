@@ -1,4 +1,4 @@
-"use client"
+
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ChevronDown } from "lucide-react"

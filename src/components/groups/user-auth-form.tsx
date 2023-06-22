@@ -2,8 +2,6 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
 
-import { Database } from "@/types/db";
-
 export default function UserAuthForm() {
   const supabase = useSupabaseClient();
 

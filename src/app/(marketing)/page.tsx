@@ -1,12 +1,8 @@
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { json, useLoaderData, useRouteError, isRouteErrorResponse, Link } from "react-router-dom";
+import { Link, isRouteErrorResponse, useRouteError } from "react-router-dom";
 
-export async function loader({ }) {
-  let data = "Home";
-  return json(data);
-}
 
 const features = [
   {
@@ -50,8 +46,6 @@ const features = [
   },
 ];
 export function Component() {
-  let data = useLoaderData() as string;
-
   return (
     <>
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">

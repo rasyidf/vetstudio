@@ -1,5 +1,3 @@
-
-import { Database } from "@/types/db";
 import { User } from "@/types/main";
 import {
   DropdownMenu,

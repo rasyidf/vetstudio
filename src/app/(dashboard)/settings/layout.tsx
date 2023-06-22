@@ -1,10 +1,7 @@
 
-import { Separator } from "@/components/ui/separator";
+import { DashboardShell } from "@/components/groups/shell";
 import { SidebarNav } from "@/components/groups/sidebar-nav";
 import { Outlet } from "react-router-dom";
-import { DashboardHeader } from "@/components/groups/header";
-import { DashboardShell } from "@/components/groups/shell";
-import { Tabs } from "@/components/ui/tabs";
 
 const sidebarNavItems = [
     {
