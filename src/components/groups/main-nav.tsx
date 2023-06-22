@@ -1,65 +1,79 @@
+"use client";
 
+import * as React from "react";
+import { MainNavItem } from "@/types";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { useSession } from "@supabase/auth-helpers-react";
-import { useMemo } from "react";
-import { NavLink } from "react-router-dom";
+import { Icons } from "@/components/icons";
+import { MobileNav } from "@/components/groups/mobile-nav";
+import { Link, useLocation } from "react-router-dom";
 
-export function MainNav({
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLElement>) {
-    const session = useSession();
+interface MainNavProps {
+  items?: MainNavItem[];
+  children?: React.ReactNode;
+}
 
-    const menus = useMemo(() => {
-        if (!session) return [
-            {
-                name: "About",
-                path: "/about",
-            },
-            {
-                name: "Pricing",
-                path: "/pricing",
-            },
-            {
-                name: "Contact",
-                path: "/contact",
-            },
-            {
-                name: "Blog",
-                path: "/blog",
+export function MainNav({ items, children }: MainNavProps) {
+  const { pathname } = useLocation();
+  const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
+
+  return (
+    <div className="flex gap-6 md:gap-10">
+      <Link to="/" className="hidden items-center space-x-2 md:flex">
+        <Icons.logo />
+        <span className="hidden font-bold sm:inline-block">
+          {siteConfig.name}
+        </span>
+      </Link>
+      {items?.length ? (
+        <nav className="hidden gap-6 md:flex">
+          {items?.map((item, index) => {
+            if (item.href.startsWith("/#")) {
+              // return actual anchor tag
+              return (
+                <a
+                  href={item.href}
+                  key={index}
+                  className={cn(
+                    "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm",
+                    item.href.startsWith(`${pathname}`)
+                      ? "text-foreground"
+                      : "text-foreground/60",
+                    item.disabled && "cursor-not-allowed opacity-80"
+                  )}
+                >{
+                  item.title
+                }</a>);
+
             }
-        ];
-
-        return [
-            {
-                name: "Dashboard",
-                path: "/app/",
-            },
-            {
-                name: "Settings",
-                path: "/app/settings",
-            },
-            {
-                name: "Profile",
-                path: "/app/profile",
-            }
-        ];
-    }, [session]);
-
-    return (
-        <nav
-            className={cn("flex items-center space-x-4 lg:space-x-6", className)}
-            {...props}
-        >
-            {menus.map((menu) => (
-                <NavLink
-                    key={menu.path}
-                    to={menu.path}
-                    className={({ isActive }) => cn("text-sm font-medium hover:text-primary", isActive ? "text-primary" : "text-muted-foreground")}
-                >
-                    {menu.name}
-                </NavLink>
-            ))}
+            return (
+              <Link
+                key={index}
+                to={item.disabled ? "#" : item.href}
+                className={cn(
+                  "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm",
+                  item.href.startsWith(`${pathname}`)
+                    ? "text-foreground"
+                    : "text-foreground/60",
+                  item.disabled && "cursor-not-allowed opacity-80"
+                )}
+              >
+                {item.title}
+              </Link>
+            );
+          })}
         </nav>
-    );
+      ) : null}
+      <button
+        className="flex items-center space-x-2 md:hidden"
+        onClick={() => setShowMobileMenu(!showMobileMenu)}
+      >
+        {showMobileMenu ? <Icons.close /> : <Icons.logo />}
+        <span className="font-bold">Menu</span>
+      </button>
+      {showMobileMenu && items && (
+        <MobileNav items={items}>{children}</MobileNav>
+      )}
+    </div>
+  );
 }
