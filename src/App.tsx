@@ -1,12 +1,16 @@
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import './styles/globals.css';
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import { supabase } from "@/lib/supabase";
 
 function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <SessionContextProvider supabaseClient={supabase}>
+        <RouterProvider router={router} />
+      </SessionContextProvider>
     </>
   );
 }

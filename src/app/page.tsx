@@ -10,7 +10,7 @@ export function Component() {
 
   return (
     <>
-      <h1>You made it!</h1>
+      <h1>Yey</h1>
       <p>{data}</p>
     </>
   );

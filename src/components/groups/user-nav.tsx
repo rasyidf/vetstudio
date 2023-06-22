@@ -12,15 +12,18 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUser } from "@supabase/auth-helpers-react";
 
 export function UserNav() {
+    const user = useUser();
+    console.log(user);
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
                         <AvatarImage src="/avatars/01.png" alt="@rasyidf" />
-                        <AvatarFallback>RF</AvatarFallback>
+                        <AvatarFallback>{user?.user_metadata?.fullName}</AvatarFallback>
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
@@ -45,11 +48,12 @@ export function UserNav() {
                         <span>Settings</span>
                         <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <PlusCircle className="mr-2 h-4 w-4" />
-                        <span>New Team</span>
-                    </DropdownMenuItem>
                 </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    <span>New Vet Clinic</span>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                     <LogOut className="mr-2 h-4 w-4" />
