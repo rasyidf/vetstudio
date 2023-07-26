@@ -2,6 +2,7 @@ import { User } from "./main";
 import type { Icon } from "lucide-react";
 
 import { Icons } from "@/components/icons";
+import { Role } from "./roles";
 
 export type NavItem = {
   title: string;
@@ -16,6 +17,9 @@ export type SidebarNavItem = {
   disabled?: boolean;
   external?: boolean;
   icon?: keyof typeof Icons;
+
+  // If the role is not specified, it means that the route is accessible to all roles
+  role?: Role[];
 } & (
     | {
       href: string;
@@ -32,10 +36,7 @@ export type SiteConfig = {
   description: string;
   url: string;
   ogImage: string;
-  links: {
-    twitter: string;
-    github: string;
-  };
+  links: Record<string, string>;
 };
 
 export type DocsConfig = {

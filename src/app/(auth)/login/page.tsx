@@ -32,7 +32,7 @@ export function Component() {
         <div className="flex flex-col space-y-2 text-center">
           <Icons.logo className="mx-auto h-16 w-16" />
           <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome back
+            Selamat datang di VetStudio
           </h1>
         </div>
         <UserAuthForm />

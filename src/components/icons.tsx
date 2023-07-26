@@ -1,6 +1,11 @@
+import logo from "@/assets/icon.png";
+import { cn } from "@/lib/utils";
 import {
   AlertTriangle,
   ArrowRight,
+  Boxes,
+  CalendarIcon,
+  Cat,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -8,6 +13,7 @@ import {
   File,
   FileText,
   HelpCircle,
+  HomeIcon,
   Image,
   Laptop,
   Loader2,
@@ -22,12 +28,11 @@ import {
   Twitter,
   User,
   X,
-  type Icon as LucideIcon,
+  type LucideIcon,
+  Pill,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
-import logo from "@/assets/icon.png";
-import { cn } from "@/lib/utils";
 
 export const Icons = {
   logo: ({ className }: LucideProps) => (<><img src={logo} className={cn("w-8", className)} alt="Logo" /></>),
@@ -51,6 +56,12 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   laptop: Laptop,
+  calendar: CalendarIcon,
+  cat: Cat,
+  box: Boxes,
+  report: FileText,
+  dashboard: HomeIcon,
+  prescription  : Pill,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"

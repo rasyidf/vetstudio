@@ -9,5 +9,6 @@ export const siteConfig: SiteConfig = {
   links: {
     twitter: "https://twitter.com/rasyidf_",
     github: "https://github.com/rasyidf",
+    whatsapp: "https://wa.me/6285330121887/?text=Hello%20Rasyid%2C%20I%20want%20to%20ask%20about%20VetStudio%20App%20%3A%29",
   },
 };

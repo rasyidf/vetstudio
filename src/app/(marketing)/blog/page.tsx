@@ -9,5 +9,5 @@ export function Component() {
   );
 }
 
-// If you want to customize the component display name in React dev tools:
+
 Component.displayName = "BlogPage";

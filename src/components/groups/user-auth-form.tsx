@@ -10,7 +10,7 @@ export default function UserAuthForm() {
       <Auth
         supabaseClient={supabase}
         providers={["github"]}
-        redirectTo={"/app/dashboard"}
+        redirectTo={"app/dashboard"}
         magicLink={true}
         appearance={{
           className: {
