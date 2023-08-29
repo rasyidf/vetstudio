@@ -1,0 +1,12 @@
+{
+    "navbar": {
+        "home": "Beranda",
+        "feature": "Fitur",
+        "about": "Tentang",
+        "pricing": "Harga",
+        "contact": "Kontak",
+        "login": "Masuk",
+        "register": "Daftar",
+        "logout": "Keluar"
+    }
+}

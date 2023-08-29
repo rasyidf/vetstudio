@@ -1,0 +1,18 @@
+{
+  "cta": {
+    "start": "Let's get started",
+    "description": "Start managing your clinic with VetStudio today! Register now and get a 30-day free trial, then pay as you go."
+  },
+  "features": {
+    "title": "Features",
+    "subtitle": "VetStudio is a full-featured clinic management software that includes several features to help you manage your clinic.",
+    "description": "The best part? you can get started for free!"
+  },
+  "hero": {
+    "subtitle": "Upgrade your clinics management experience",
+    "title": "Manage your vet clinic with ease",
+    "description": "Clinic management software that enhances your practice and makes it easy to run your clinic.",
+    "cta": "Get Started",
+    "democta": "Plan a Demo"
+  }
+}

@@ -1,0 +1,13 @@
+{
+    "navbar": {
+        "home": "Home",
+        "feature": "Feature",
+        "blog": "Blog",
+        "about": "About",
+        "pricing": "Pricing",
+        "contact": "Contact",
+        "login": "Login",
+        "register": "Register",
+        "logout": "Logout"
+    }
+}

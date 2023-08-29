@@ -1,5 +1,3 @@
-// RBAC Enums : Vet Clinics Management System
-
 export enum Role {
     Admin = "admin",
     Receptionist = "receptionist",
