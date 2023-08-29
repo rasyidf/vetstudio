@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-
+ 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -18,7 +18,6 @@ export function getInitials(name: string) {
   if (name.length === 0) {
     return ""
   }
-
 
   const nameSpan = name.split(" ")
   if (nameSpan.length === 1) {

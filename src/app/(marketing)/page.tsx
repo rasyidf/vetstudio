@@ -1,6 +1,7 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 import { useNavigate, Link, isRouteErrorResponse, useRouteError } from "react-router-dom";
 
 
@@ -32,95 +33,110 @@ const features = [
 ];
 
 export function Component() {
-  const navigate = useNavigate();
   return (
     <>
-      <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
-        <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-          <Link
-            to={siteConfig.links.twitter}
-            className="rounded-2xl bg-muted px-4 py-1.5 text-sm font-medium"
-            target="_blank"
-          >
-            Upgrade your clinics management experience
-          </Link>
-          <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
-            Manage your vet clinic with ease
-          </h1>
-          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-            Clinic management software that enhances your practice and makes it easy to run your clinic.
-          </p>
-          <div className="space-x-4">
-            <Link to="/login" className={cn(buttonVariants({ size: "lg" }))}>
-              Get Started
-            </Link>
-            <Link
-              to={siteConfig.links.whatsapp}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
-            >
-              Plan a Demo
-            </Link>
-          </div>
-        </div>
-      </section>
-      <section
-        id="features"
-        className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
-      >
-        <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-          <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-            Features
-          </h2>
-          <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-            VetStudio is a full-featured clinic management software that includes several features to help you manage your clinic.
-          </p>
-        </div>
-        <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-          {features.map((feature) => (
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <div className="space-y-2">
-                  <h3 className="font-bold">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mx-auto text-center md:max-w-[58rem]">
-          <p className="leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nesciunt aut, facilis itaque tenetur assumenda repudiandae dignissimos omnis non esse tempora soluta praesentium repellat officiis maxime necessitatibus ex, amet possimus?
-          </p>
-        </div>
-      </section>
-      <section id="open-source" className="container py-8 md:py-12 lg:py-24">
-        <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
-          <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-            Let&apos;s get started,
-          </h2>
-          <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores ipsum, minus sed recusandae soluta eaque eligendi maiores illo debitis tenetur ipsa vel, optio ex necessitatibus illum deserunt omnis, similique accusamus.
-
-            .{" "}
-          </p>
-          <Button
-            onClick={() => navigate("/auth")}
-          >
-            Register
-          </Button>
-
-        </div>
-      </section>
+      <HeroSection />
+      <FeatureSection />
+      <CTASection />
     </>
   );
 }
 
 
 Component.displayName = "IndexPage";
+
+function CTASection() {
+  const { t } = useTranslation("marketing");
+  const navigate = useNavigate();
+  return <section id="call-to-action" className="container py-8 md:py-12 lg:py-24">
+    <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
+      <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+        {t('cta.start')}
+      </h2>
+      <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+        {t('cta.description')}
+      </p>
+      <Button
+        onClick={() => navigate("/login")}
+      >
+        {t('navbar.register', { ns: "common" })}
+      </Button>
+
+    </div>
+  </section>;
+}
+
+function FeatureSection() {
+  const { t } = useTranslation("marketing");
+  return <section
+    id="features"
+    className="container dark:bg-transparent"
+  >
+    <div className="py-8 space-y-6 md:py-12 lg:py-24">
+      <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+        <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+          {t('features.title')}
+        </h2>
+        <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+          {t('features.subtitle')}
+        </p>
+      </div>
+      <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
+        {features.map((feature) => (
+          <div key={`${feature.title}-card`} className="relative p-2 overflow-hidden border rounded-lg bg-background">
+            <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+              <div className="space-y-2">
+                <h3 className="font-bold">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {feature.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mx-auto text-center md:max-w-[58rem]">
+        <p className="leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+          {t('features.description')}
+        </p>
+      </div>
+    </div>
+  </section>;
+}
+
+function HeroSection() {
+  const { t } = useTranslation("marketing");
+  return <section className="pt-6 pb-8 space-y-6 md:pb-12 md:pt-10 lg:py-32">
+    <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
+      <Link
+        to={siteConfig.links.twitter}
+        className="rounded-2xl bg-muted px-4 py-1.5 text-sm font-medium"
+        target="_blank"
+      >
+        {t('hero.subtitle')}
+      </Link>
+      <h1 className="text-3xl font-heading sm:text-5xl md:text-6xl lg:text-7xl">
+        {t('hero.title')}
+      </h1>
+      <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
+        {t('hero.description')}
+      </p>
+      <div className="space-x-4">
+        <Link to="/login" className={cn(buttonVariants({ size: "lg" }))}>
+          {t('hero.cta')}
+        </Link>
+        <Link
+          to={siteConfig.links.whatsapp}
+          target="_blank"
+          rel="noreferrer"
+          className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+        >
+          {t('hero.democta')}
+        </Link>
+      </div>
+    </div>
+  </section>;
+}
 
 export function ErrorBoundary() {
   let error = useRouteError();
