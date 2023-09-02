@@ -56,6 +56,12 @@ export type DashboardConfig = {
 export type SubscriptionPlan = {
   name: string;
   description: string;
+  clinics: string;
+  veterinarians: string;
+  rooms: string;
+  sessions: string;
+  appointments: string;
+  price: string;
 };
 
 export type UserSubscriptionPlan = SubscriptionPlan & {
