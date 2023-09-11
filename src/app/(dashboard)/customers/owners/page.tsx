@@ -1,27 +1,16 @@
-import { Table } from "@/components/ui/table";
+import { DashboardHeader } from "@/components/groups/header";
+import { DashboardShell } from "@/components/groups/shell";
 
 export function Component() {
 
     return (
-        <>
-            <h2>Clinics</h2>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
-                </tbody>
-            </Table>
-        </>
+        <DashboardShell>
+            <DashboardHeader
+                heading="Owners"
+                text="Manage customer."
+            />
+
+        </DashboardShell>
     );
 }
 

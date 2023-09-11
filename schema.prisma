@@ -1,0 +1,130 @@
+model Profile {
+  userId      Int           @id @default(autoincrement())
+  username    String
+  email       String        @unique
+  role        String
+  clinics     Clinic[]
+  Customer    Customer[]
+  Vet         Vet[]
+  ClinicStaff ClinicStaff[]
+}
+
+model Clinic {
+  clinicId     Int               @id @default(autoincrement())
+  clinicName   String
+  ownerId      Int // Foreign Key referencing User
+  owner        Profile           @relation(fields: [ownerId], references: [userId])
+  staff        ClinicStaff[]
+  vets         Vet[]
+  inventory    ClinicInventory[]
+  customers    Customer[]
+  appointments Appointment[]
+  billing      Billing[]
+  Service      ClinicService[]
+}
+
+model Customer {
+  customerId   Int           @id @default(autoincrement())
+  userId       Int // Foreign Key referencing User
+  user         User          @relation(fields: [userId], references: [userId])
+  clinicId     Int // Foreign Key referencing Clinic
+  clinic       Clinic        @relation(fields: [clinicId], references: [clinicId])
+  pets         Pet[]
+  appointments Appointment[]
+  billing      Billing[]
+}
+
+model Pet {
+  petId      Int      @id @default(autoincrement())
+  petName    String
+  species    String
+  birthDate  DateTime
+  customerId Int // Foreign Key referencing Customer
+  customer   Customer @relation(fields: [customerId], references: [customerId])
+}
+
+model Vet {
+  vetId        Int           @id @default(autoincrement())
+  userId       Int // Foreign Key referencing User
+  user         Profile       @relation(fields: [userId], references: [userId])
+  clinicId     Int // Foreign Key referencing Clinic
+  clinic       Clinic        @relation(fields: [clinicId], references: [clinicId])
+  appointments Appointment[]
+  vetRates     BigInt
+}
+
+model ClinicStaff {
+  clinicStaffId Int     @id @default(autoincrement())
+  userId        Int // Foreign Key referencing User
+  user          Profile @relation(fields: [userId], references: [userId])
+  role          String
+  clinicId      Int // Foreign Key referencing Clinic
+  clinic        Clinic  @relation(fields: [clinicId], references: [clinicId])
+}
+
+model ClinicInventory {
+  itemId        Int    @id @default(autoincrement())
+  itemName      String
+  quantity      Int
+  buyPrice      Float
+  sellingPrice  Float
+  unitOfMeasure String
+  clinicId      Int // Foreign Key referencing Clinic
+  clinic        Clinic @relation(fields: [clinicId], references: [clinicId])
+}
+
+model ClinicService {
+  serviceId   Int    @id @default(autoincrement())
+  serviceName String
+  serviceFee  Float
+  clinicId    Int // Foreign Key referencing Clinic
+  clinic      Clinic @relation(fields: [clinicId], references: [clinicId])
+}
+
+model Appointment {
+  appointmentId   Int       @id @default(autoincrement())
+  appointmentDate DateTime
+  vetId           Int // Foreign Key referencing Vet
+  vet             Vet       @relation(fields: [vetId], references: [vetId])
+  customerId      Int // Foreign Key referencing Customer
+  customer        Customer  @relation(fields: [customerId], references: [customerId])
+  clinicId        Int // Foreign Key referencing Clinic
+  clinic          Clinic    @relation(fields: [clinicId], references: [clinicId])
+  billing         Billing[]
+}
+
+model Billing {
+  billingId      Int             @id @default(autoincrement())
+  appointmentId  Int // Foreign Key referencing Appointment
+  appointment    Appointment     @relation(fields: [appointmentId], references: [appointmentId])
+  clinicId       Int // Foreign Key referencing Clinic
+  clinic         Clinic          @relation(fields: [clinicId], references: [clinicId])
+  customerId     Int // Foreign Key referencing Customer
+  customer       Customer        @relation(fields: [customerId], references: [customerId])
+  amount         Float
+  paymentStatus  String
+  paymentMethod  String?
+  discount       Float?
+  paymentDetails PaymentDetail[]
+  OtherFee       OtherFee[]
+}
+
+model PaymentDetail {
+  paymentDetailId Int     @id @default(autoincrement())
+  billingId       Int // Foreign Key referencing Billing
+  billing         Billing @relation(fields: [billingId], references: [billingId])
+  kind            String
+  itemId          Int?
+  serviceId       Int?
+  vetRateId       Int?
+  otherFeeId      Int?
+  amount          Float
+}
+
+model OtherFee {
+  otherFeeId Int     @id @default(autoincrement())
+  billingId  Int // Foreign Key referencing Billing
+  billing    Billing @relation(fields: [billingId], references: [billingId])
+  feeName    String
+  feeAmount  Float
+}

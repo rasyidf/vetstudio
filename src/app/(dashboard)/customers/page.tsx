@@ -1,26 +1,48 @@
-import { Table } from "@/components/ui/table";
+import { DataTable } from "@/components/groups/data-table/data-table";
+import { DashboardHeader } from "@/components/groups/header";
+import { DashboardShell } from "@/components/groups/shell";
+import { ColumnDef } from "@tanstack/react-table";
+
+const customers = [
+    {
+        id: 1,
+        name: "John Doe",
+        email: "rudi@gmail.com"
+    },
+    {
+        id: 2,
+        name: "Jane Doe",
+        email: "jane@gmail.com"
+    },
+]
+
+const columns = [
+    {
+        header: "Name",
+        accessorKey: "name"
+    },
+    {
+        header: "Email",
+        accessorKey: "email"
+    },
+] as ColumnDef<{
+    id: number;
+    name: string;
+    email: string;
+}, unknown>[]
 
 export function Component() {
 
     return (
         <>
-            <h2>Clinics</h2>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
-                </tbody>
-            </Table>
+            <DashboardShell>
+                <DashboardHeader
+                    heading="Customers"
+                    text="Manage your customers."
+                />
+
+                <DataTable data={customers} columns={columns} />
+            </DashboardShell>
         </>
     );
 }
