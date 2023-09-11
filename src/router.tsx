@@ -25,6 +25,10 @@ export const router = createBrowserRouter([
           {
             path: "pricing",
             lazy: () => import("./app/(marketing)/pricing/page.tsx"),
+          },
+          {
+            path: "dosage-calculator",
+            lazy: () => import("./app/(marketing)/dosage-calculator/page.tsx"),
           }
         ]
       },

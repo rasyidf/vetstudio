@@ -1,0 +1,88 @@
+{
+    "InputParameters": [
+        {
+            "name": "AnimalWeight",
+            "type": "number",
+            "description": "The weight of the animal (e.g., 10.5)",
+            "units": "kg"
+        },
+        {
+            "name": "MedicationName",
+            "type": "string",
+            "description": "The name of the medication (e.g., Amoxicillin)"
+        },
+        {
+            "name": "MedicationConcentration",
+            "type": "number",
+            "description": "The concentration of the medication (e.g., 250)",
+            "units": "mg/ml"
+        },
+        {
+            "name": "DesiredDosage",
+            "type": "number",
+            "description": "The desired dosage (e.g., 10)",
+            "units": "mg/kg"
+        }
+    ],
+    "CalculationLogic": {
+        "Steps": [
+            "Verify Animal Weight and Units",
+            "Verify Medication Name",
+            "Calculate Dosage (AnimalWeight * DesiredDosage)",
+            "Verify Medication Concentration and Units",
+            "Adjust Dosage based on Concentration (if necessary)"
+        ],
+        "Output": {
+            "Dose": "Calculated Dose (in mg or other specified units)",
+            "AdministrationInstructions": "How to administer the medication (e.g., orally, injection)"
+        }
+    },
+    "ErrorHandling": {
+        "Scenarios": [
+            {
+                "Name": "Invalid Animal Weight",
+                "Condition": "AnimalWeight is not a valid number (e.g., a non-numeric string)",
+                "Action": "Display an error message like 'Please enter a valid animal weight.'"
+            },
+            {
+                "Name": "Invalid Medication Selection",
+                "Condition": "The user selects an option like 'Select Medication' or leaves it blank",
+                "Action": "Display an error message like 'Please select a valid medication.'"
+            },
+            {
+                "Name": "Missing Medication Concentration",
+                "Condition": "Medication Concentration is missing or not provided",
+                "Action": "Display an error message like 'Please enter the medication concentration (e.g., mg/ml).'"
+            },
+            {
+                "Name": "Invalid Desired Dosage",
+                "Condition": "Desired Dosage is not a valid number",
+                "Action": "Display an error message like 'Please enter a valid desired dosage (e.g., mg/kg).'"
+            },
+            {
+                "Name": "Invalid Medication Name",
+                "Condition": "The selected medication name is not found in the database",
+                "Action": "Display an error message like 'Selected medication not found in the database.'"
+            },
+            {
+                "Name": "Missing Medication Information",
+                "Condition": "Essential medication information (concentration, desired dosage) is missing from the database",
+                "Action": "Display an error message like 'Medication information is incomplete. Please contact support.'"
+            },
+            {
+                "Name": "Concentration Unit Mismatch",
+                "Condition": "The unit of medication concentration entered by the user does not match the unit in the database (e.g., mg/ml vs. g/l)",
+                "Action": "Adjust the dosage and display a message like 'Adjusted dosage based on concentration unit.'"
+            },
+            {
+                "Name": "Zero or Negative Dosage",
+                "Condition": "The calculated dosage is zero or negative",
+                "Action": "Display a warning message like 'The calculated dosage is zero or negative. Please review your inputs.'"
+            }
+        ],
+        "Actions": [
+            "Display Appropriate Error Messages",
+            "Prevent Calculation with Invalid Inputs"
+        ]
+    }
+}
