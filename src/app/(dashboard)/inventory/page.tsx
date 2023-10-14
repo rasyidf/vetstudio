@@ -2,7 +2,7 @@ import { DataTable } from "@/components/groups/data-table/data-table";
 import { DashboardHeader } from "@/components/groups/header";
 import { DashboardShell } from "@/components/groups/shell";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
 import { json, useLoaderData } from "react-router-dom";
 
 type Inventory = {

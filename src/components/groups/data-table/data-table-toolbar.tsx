@@ -5,9 +5,8 @@ import { Table } from "@tanstack/react-table"
 
 import { DataTableViewOptions } from "./data-table-view-options"
 
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 interface DataTableToolbarProps<TData> {
     table: Table<TData>
@@ -21,11 +20,11 @@ export function DataTableToolbar<TData>({
     children,
 }: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
-    const statuses = [
-        { label: "Open", value: "open" },
-        { label: "In Progress", value: "in-progress" },
-        { label: "Closed", value: "closed" },
-    ]
+    // const statuses = [
+    //     { label: "Open", value: "open" },
+    //     { label: "In Progress", value: "in-progress" },
+    //     { label: "Closed", value: "closed" },
+    // ]
 
     return (
         <div className="flex items-center justify-between">

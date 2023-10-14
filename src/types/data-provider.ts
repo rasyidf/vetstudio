@@ -1,4 +1,3 @@
-import { dataProvider } from "@/lib/supabase/DataProvider";
 import { QueryFunctionContext } from "@tanstack/react-query";
 export type Fields = Array<string | object | NestedField>;
 
@@ -324,4 +323,19 @@ export type IDataContext = IDataContextProvider;
 export interface IDataMultipleContextProvider {
     default: IDataContextProvider;
     [key: string]: IDataContextProvider | any;
+}
+
+
+export interface ValidationErrors {
+    [field: string]:
+    | string
+    | string[]
+    | boolean
+    | { key: string; message: string };
+}
+
+export interface HttpError extends Record<string, any> {
+    message: string;
+    statusCode: number;
+    errors?: ValidationErrors;
 }

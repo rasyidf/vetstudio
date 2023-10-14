@@ -1,48 +1,45 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { generateFilter, handleError } from "./utils";
-import { DataProvider } from "@/types/DataProvider";
+import { DataProvider } from "@/types/data-provider";
+
+
+function applySorters(query: any, sorters: any, meta: any) {
+    sorters?.forEach((item: any) => {
+        const [foreignTable, field] = item.field.split(/\.(.*)/);
+
+        if (foreignTable && field) {
+            query.select(meta?.select ?? `*, ${foreignTable}(${field})`).order(field, {
+                ascending: item.order === "asc",
+                foreignTable,
+            });
+        } else {
+            query.order(item.field, {
+                ascending: item.order === "asc",
+            });
+        }
+    });
+}
+
+function applyFilters(query: any, filters: any) {
+    filters?.forEach((item: any) => generateFilter(item, query));
+}
+
+
 
 export const dataProvider = (
     supabaseClient: SupabaseClient,
 ): Required<DataProvider> => {
     return {
-        getList: async ({ resource, pagination, filters, sorters, meta }) => {
-            const {
-                current = 1,
-                pageSize = 10,
-                mode = "server",
-            } = pagination ?? {};
-
-            const query = supabaseClient
-                .from(resource)
-                .select(meta?.select ?? "*", {
-                    count: meta?.count ?? "exact",
-                });
+        async getList({ resource, pagination, filters, sorters, meta }) {
+            const { current = 1, pageSize = 10, mode = "server" } = pagination ?? {};
+            const query = supabaseClient.from(resource).select(meta?.select ?? "*", { count: meta?.count ?? "exact" });
 
             if (mode === "server") {
                 query.range((current - 1) * pageSize, current * pageSize - 1);
             }
 
-            sorters?.map((item) => {
-                const [foreignTable, field] = item.field.split(/\.(.*)/);
-
-                if (foreignTable && field) {
-                    query
-                        .select(meta?.select ?? `*, ${foreignTable}(${field})`)
-                        .order(field, {
-                            ascending: item.order === "asc",
-                            foreignTable: foreignTable,
-                        });
-                } else {
-                    query.order(item.field, {
-                        ascending: item.order === "asc",
-                    });
-                }
-            });
-
-            filters?.map((item) => {
-                generateFilter(item, query);
-            });
+            applySorters(query, sorters, meta);
+            applyFilters(query, filters);
 
             const { data, count, error } = await query;
 
@@ -56,10 +53,8 @@ export const dataProvider = (
             } as any;
         },
 
-        getMany: async ({ resource, ids, meta }) => {
-            const query = supabaseClient
-                .from(resource)
-                .select(meta?.select ?? "*");
+        async getMany({ resource, ids, meta }) {
+            const query = supabaseClient.from(resource).select(meta?.select ?? "*");
 
             if (meta?.idColumnName) {
                 query.in(meta.idColumnName, ids);
@@ -78,7 +73,7 @@ export const dataProvider = (
             } as any;
         },
 
-        create: async ({ resource, variables, meta }) => {
+        async create({ resource, variables, meta }) {
             const query = supabaseClient.from(resource).insert(variables);
 
             if (meta?.select) {
@@ -96,7 +91,7 @@ export const dataProvider = (
             };
         },
 
-        createMany: async ({ resource, variables, meta }) => {
+        async createMany({ resource, variables, meta }) {
             const query = supabaseClient.from(resource).insert(variables);
 
             if (meta?.select) {
@@ -114,7 +109,7 @@ export const dataProvider = (
             };
         },
 
-        update: async ({ resource, id, variables, meta }) => {
+        async update({ resource, id, variables, meta }) {
             const query = supabaseClient.from(resource).update(variables);
 
             if (meta?.idColumnName) {
@@ -137,7 +132,7 @@ export const dataProvider = (
             };
         },
 
-        updateMany: async ({ resource, ids, variables, meta }) => {
+        async updateMany({ resource, ids, variables, meta }) {
             const response = await Promise.all(
                 ids.map(async (id) => {
                     const query = supabaseClient
@@ -168,7 +163,7 @@ export const dataProvider = (
             };
         },
 
-        getOne: async ({ resource, id, meta }) => {
+        async getOne({ resource, id, meta }) {
             const query = supabaseClient
                 .from(resource)
                 .select(meta?.select ?? "*");
@@ -189,7 +184,7 @@ export const dataProvider = (
             };
         },
 
-        deleteOne: async ({ resource, id, meta }) => {
+        async deleteOne({ resource, id, meta }) {
             const query = supabaseClient.from(resource).delete();
 
             if (meta?.idColumnName) {
@@ -208,7 +203,7 @@ export const dataProvider = (
             };
         },
 
-        deleteMany: async ({ resource, ids, meta }) => {
+        async deleteMany({ resource, ids, meta }) {
             const response = await Promise.all(
                 ids.map(async (id) => {
                     const query = supabaseClient.from(resource).delete();
@@ -234,11 +229,11 @@ export const dataProvider = (
         },
 
         getApiUrl: () => {
-            throw Error("Not implemented on refine-supabase data provider.");
+            throw Error("Not implemented on data provider.");
         },
 
         custom: () => {
-            throw Error("Not implemented on refine-supabase data provider.");
+            throw Error("Not implemented on data provider.");
         },
     };
 };

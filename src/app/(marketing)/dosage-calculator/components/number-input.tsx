@@ -1,16 +1,14 @@
 "use client"
 
 import * as React from "react"
-import { SliderProps } from "@radix-ui/react-slider"
 
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 interface NumberInputProps {
   label: string

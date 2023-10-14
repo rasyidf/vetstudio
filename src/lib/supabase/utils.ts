@@ -1,5 +1,32 @@
-import { CrudFilter } from "@refinedev/core";
-import { mapOperator } from "./mapOperator.ts";
+import { PostgrestError } from "@supabase/supabase-js";
+import { CrudFilter, CrudOperators, HttpError } from "@/types/data-provider";
+
+export const mapOperator = (operator: CrudOperators) => {
+    switch (operator) {
+        case "ne":
+            return "neq";
+        case "nin":
+            return "not.in";
+        case "contains":
+            return "ilike";
+        case "ncontains":
+            return "not.ilike";
+        case "containss":
+            return "like";
+        case "ncontainss":
+            return "not.like";
+        case "null":
+            return "is";
+        case "nnull":
+            return "not.is";
+        case "between":
+        case "nbetween":
+            throw Error(`Operator ${operator} is not supported`);
+        default:
+            return operator;
+    }
+};
+
 
 export const generateFilter = (filter: CrudFilter, query: any) => {
     switch (filter.operator) {
@@ -35,9 +62,8 @@ export const generateFilter = (filter: CrudFilter, query: any) => {
                         item.operator !== "and" &&
                         "field" in item
                     ) {
-                        return `${item.field}.${mapOperator(item.operator)}.${
-                            item.value
-                        }`;
+                        return `${item.field}.${mapOperator(item.operator)}.${item.value
+                            }`;
                     }
                     return;
                 })
@@ -53,4 +79,14 @@ export const generateFilter = (filter: CrudFilter, query: any) => {
                 filter.value,
             );
     }
+};
+
+
+export const handleError = (error: PostgrestError) => {
+    const customError: HttpError = {
+        ...error,
+        message: error.message,
+        statusCode: parseInt(error.code),
+    };
+    return Promise.reject(customError);
 };

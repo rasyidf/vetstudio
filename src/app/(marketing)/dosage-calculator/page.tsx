@@ -6,7 +6,6 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import {
     Tabs,
@@ -14,20 +13,16 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
-import { Textarea } from "@/components/ui/textarea"
 
-import { CodeViewer } from "./components/code-viewer"
 import { MaxLengthSelector } from "./components/maxlength-selector"
 import { ModelSelector } from "./components/model-selector"
+import { NumberInput } from "./components/number-input"
 import { PresetActions } from "./components/preset-actions"
 import { PresetSave } from "./components/preset-save"
 import { PresetSelector } from "./components/preset-selector"
-import { PresetShare } from "./components/preset-share"
-import { TemperatureSelector } from "./components/temperature-selector"
 import { TopPSelector } from "./components/top-p-selector"
-import { medication, admision } from "./data/models"
+import { admision, medication } from "./data/models"
 import { presets } from "./data/presets"
-import { NumberInput } from "./components/number-input"
 
 
 

@@ -2,8 +2,7 @@
 
 import * as React from "react";
 
-import { UserSubscriptionPlan } from "@/types";
-import { cn, formatDate } from "@/lib/utils";
+import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -14,7 +13,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";
-import { Icons } from "@/components/icons";
+import { cn, formatDate } from "@/lib/utils";
+import { UserSubscriptionPlan } from "@/types";
 
 interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 
@@ -28,6 +28,12 @@ export function BillingForm({
     description: "Free plan",
     isPro: false,
     isCanceled: false,
+    clinics: "1",
+    veterinarians: "1",
+    rooms: "1",
+    sessions: "1",
+    appointments: "1",
+    price: "0",
   } satisfies UserSubscriptionPlan;
   async function onSubmit(event: any) {
     event.preventDefault();
